@@ -7,6 +7,7 @@ class ProductsController {
 
   constructor(productService = new ProductService()) {
     this.productService = productService;
+    this.getAllProducts = this.getAllProducts.bind(this);
     this.createProduct = this.createProduct.bind(this);
   }
 
@@ -14,6 +15,11 @@ class ProductsController {
     const product = req.body;
     const productCreated = await this.productService.createProduct(product);
     res.status(statusCodes.CREATED).json(productCreated);
+  }
+
+  async getAllProducts(_req: Request, res: Response): Promise<void> {
+    const products = await this.productService.getAllProducts();
+    res.status(statusCodes.OK).json(products);
   }
 }
 
