@@ -12,9 +12,10 @@ class ProductController {
     this.createProduct = this.createProduct.bind(this);
   }
 
-  createProduct(req: Request, res: Response) {
+  async createProduct(req: Request, res: Response) {
     const product = req.body;
-    const productCreated = this.service.createProduct(product);
+    const productCreated = await this.service.createProduct(product);
+    console.log(productCreated);
     res.status(statusCodes.CREATED).json(productCreated);
   }
 
