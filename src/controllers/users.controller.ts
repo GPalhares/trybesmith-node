@@ -11,6 +11,24 @@ class UsersController {
   constructor(usersService = new UsersService()) {
     this.usersService = usersService;
     this.createUser = this.createUser.bind(this);
+    this.login = this.login.bind(this);
+  }
+
+  async login(req: Request, res: Response) {
+    const user = req.body;
+    const response = await this.usersService.login(user);
+    console.log(response);
+    if (response === 'passwordInvalid') {
+      return res
+        .status(statusCodes.UNAUTHORIZED)
+        .json({ message: 'Username or password invalid' });
+    }
+    const { username, password } = user;
+    const token = jwt.sign({ username, password }, JWT_SECRET, {
+      expiresIn: '1h',
+    });
+
+    res.status(statusCodes.CREATED).json({ token });
   }
 
   async createUser(req: Request, res: Response): Promise<void> {

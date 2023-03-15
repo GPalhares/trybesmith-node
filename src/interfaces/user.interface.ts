@@ -6,4 +6,15 @@ interface User {
   password: string;
 }
 
-export default User;
+interface Login {
+  username: string;
+  password: string;
+}
+
+interface ResponseLogin {
+  id?: number;
+  username?: string;
+  password?: string;
+}
+
+export { User, Login, ResponseLogin };
