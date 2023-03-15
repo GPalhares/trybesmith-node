@@ -28,7 +28,7 @@ class UsersController {
       expiresIn: '1h',
     });
 
-    res.status(statusCodes.CREATED).json({ token });
+    res.status(statusCodes.OK).json({ token });
   }
 
   async createUser(req: Request, res: Response): Promise<void> {
