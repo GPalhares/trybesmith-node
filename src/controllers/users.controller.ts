@@ -17,7 +17,6 @@ class UsersController {
   async login(req: Request, res: Response) {
     const user = req.body;
     const response = await this.usersService.login(user);
-    console.log(response);
     if (response === 'passwordInvalid') {
       return res
         .status(statusCodes.UNAUTHORIZED)
