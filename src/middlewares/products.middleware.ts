@@ -28,18 +28,18 @@ function validateProductAmount(
   res: Response,
   next: NextFunction,
 ) {
-  const { name } = req.body as Product;
-  if (!name) {
+  const { amount } = req.body;
+  if (!amount) {
     const message = '"amount" is required';
     return res.status(statusCodes.BAD_REQUEST).json({ message });
   }
 
-  if (typeof name !== 'string') {
+  if (typeof amount !== 'string') {
     const message = '"amount" must be a string';
     return res.status(422).json({ message });
   }
 
-  if (name.split('').length < 2) {
+  if (amount.split('').length < 2) {
     const message = '"amount" length must be at least 3 characters long';
     return res.status(422).json({ message });
   }
