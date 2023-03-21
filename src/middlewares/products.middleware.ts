@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import statusCodes from '../statusCodes';
 
 import { Product } from '../interfaces/product.interface';
+import Order from '../interfaces/order.interface';
 
 function validateProductName(req: Request, res: Response, next: NextFunction) {
   const { name } = req.body as Product;
@@ -47,4 +48,24 @@ function validateProductAmount(
   next();
 }
 
-export default { validateProductName, validateProductAmount };
+function validateProductsId(req: Request, res: Response, next: NextFunction) {
+  const { productsIds } = req.body as Order;
+  if (!productsIds) {
+    const message = '"productsIds" is required';
+    return res.status(statusCodes.BAD_REQUEST).json({ message });
+  }
+
+  if (typeof productsIds !== 'object') {
+    const message = '"productsIds" must be an array';
+    return res.status(422).json({ message });
+  }
+
+  if (productsIds.length === 0) {
+    const message = '"productsIds" must include only numbers';
+    return res.status(422).json({ message });
+  }
+
+  next();
+}
+
+export default { validateProductName, validateProductAmount, validateProductsId };
