@@ -17,4 +17,8 @@ interface ResponseLogin {
   password?: string;
 }
 
-export { User, Login, ResponseLogin };
+interface Username {
+  username: string;
+}
+
+export { User, Login, ResponseLogin, Username };

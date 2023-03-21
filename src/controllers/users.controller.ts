@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import jwt from 'jsonwebtoken';
+import jwt, { Secret } from 'jsonwebtoken';
 import UsersService from '../services/users.service';
 import statusCodes from '../statusCodes';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'default_secret';
+const { JWT_SECRET } = process.env;
 
 class UsersController {
   usersService: UsersService;
@@ -23,7 +23,7 @@ class UsersController {
         .json({ message: 'Username or password invalid' });
     }
     const { username, password } = user;
-    const token = jwt.sign({ username, password }, JWT_SECRET, {
+    const token = jwt.sign({ username, password }, JWT_SECRET as Secret, {
       expiresIn: '1h',
     });
 
@@ -34,7 +34,7 @@ class UsersController {
     const user = req.body;
     await this.usersService.createUser(user);
     const { id, email } = user;
-    const token = jwt.sign({ id, email }, JWT_SECRET, {
+    const token = jwt.sign({ id, email }, JWT_SECRET as Secret, {
       expiresIn: '1h',
     });
     res.status(statusCodes.CREATED).json({ token });

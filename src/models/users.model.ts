@@ -1,5 +1,5 @@
 import { Pool, ResultSetHeader, RowDataPacket } from 'mysql2/promise';
-import { User, Login, ResponseLogin } from '../interfaces/user.interface';
+import { User, Login, ResponseLogin, Username } from '../interfaces/user.interface';
 
 class UsersModel {
   connection: Pool;
@@ -35,6 +35,20 @@ class UsersModel {
 
     const newUser: User = { id, username, vocation, level, password };
     return newUser;
+  }
+
+  async checkUsernameId(username: Username) {
+    const [rows] = await this.connection.execute<RowDataPacket[]>(
+      'SELECT id, username, password FROM Trybesmith.users WHERE username = ?',
+      [username],
+    );
+    const user = rows[0];
+    if (user) {
+      return {
+        id: user.id,
+      };
+    } 
+    return [] as ResponseLogin;
   }
 }
 
