@@ -1,13 +1,53 @@
-# :construction: README customizado em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto no qual você pode customizar e reutilizar todas as vezes que for executar o trybe-publisher.
 
-Para deixá-lo com a sua cara, basta alterar o seguinte arquivo da sua máquina: ~/.student-repo-publisher/custom/_NEW_README.md
+# TrybeSmith API
 
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+Neste projeto você vai encontrar um CRUD para uma loja mediaval de um jogo de RPG
+
+
+## Stack utilizada
+
+**Back-end:** Node, Express ,Mysql, Docker e JWT
+
+
+## Documentação da API
+
+#### Realiza Login checkando os dados do usúario no banco e retornando um token JWT
+```http
+  POST /login
+```
+
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `username` | `string` | **Obrigatório**. Email Válido |
+`password` | `string` | **Obrigatório**. Password Válido |
+
+
+#### Realiza cadastro de uma nova ORDEM
+```http
+  POST /orders
+```
+
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `productsIds` | `object` | **Obrigatório**. Array de Números dos ids dos produtos |
+
+#### Realiza cadastro de um novo USER
+```http
+  POST /users
+```
+
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `username` | `string` | **Obrigatório**. Username Válido
+| `vocation` | `string` | **Obrigatório**. Vocation Válido
+| `level` | `number` | **Obrigatório**. Level entre 1 e 100
+| `password` | `string` | **Obrigatório**. Password Válido
+
+
+#### Realiza a busca de todos os PEDIDOS
+```http
+  GET /orders
+```
+
+
+
